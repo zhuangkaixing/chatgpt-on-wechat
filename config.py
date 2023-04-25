@@ -9,6 +9,11 @@ from common.log import logger
 
 # 将所有可用的配置项写在字典里, 请使用小写字母
 available_setting = {
+    # 数据库相关配置
+    "mysql_host": "",
+    "mysql_db": "",
+    "mysql_user": "",
+    "mysql_passwd": "",
     # openai api配置
     "open_ai_api_key": "",  # openai api key
     # openai apibase，当use_azure_chatgpt为true时，需要设置对应的api base

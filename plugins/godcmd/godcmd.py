@@ -7,6 +7,7 @@ import string
 import traceback
 from typing import Tuple
 
+import pymysql
 import plugins
 from bridge.bridge import Bridge
 from bridge.context import ContextType
@@ -286,6 +287,38 @@ class Godcmd(Plugin):
                             ok, result = True, "服务已恢复"
                         elif cmd == "reconf":
                             load_config()
+                            ok, result = True, "配置已重载"
+                        elif cmd == "reconf2":
+                            # 打开数据库连接
+                            try:
+                                db = pymysql.connect(host=conf().get('mysql_host'), user=conf().get('mysql_user'), passwd=conf().get('mysql_passwd'), port=3306, db=conf().get('mysql_db'))
+                                print('数据库连接成功！')
+                            except:
+                                print('数据库连接失败!')
+                            # 使用 cursor() 方法创建一个游标对象 cursor
+                            cursor = db.cursor()
+                            # 配置表不存在则创建一条
+                            cursor.execute("CREATE TABLE IF NOT EXISTS `z_config`  (\
+                                                `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '配置ID',\
+                                                `name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '变量名',\
+                                                `value` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '变量值',\
+                                                PRIMARY KEY (`id`) USING BTREE\
+                                            ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '配置表' ROW_FORMAT = Dynamic;\
+                            ")
+                            cursor.execute("select name,value from z_config")
+                            # 使用 fetchall() 方法获取所有数据.
+                            configList = cursor.fetchall()
+                            if configList.__len__():
+                                for name, value in configList:
+                                    if value in ['true', 'True', '1']:
+                                        value = True
+                                    elif value in ['false', 'False', '0']:
+                                        value = False
+                                    else:
+                                        value = json.loads(value)
+                                    conf().__setitem__(name, value)
+                            # 关闭数据库连接
+                            db.close()
                             ok, result = True, "配置已重载"
                         elif cmd == "resetall":
                             if bottype in (const.CHATGPT, const.OPEN_AI):
