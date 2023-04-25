@@ -65,6 +65,10 @@ ADMIN_COMMANDS = {
         "alias": ["reconf", "重载配置"],
         "desc": "重载配置(不包含插件配置)",
     },
+    "reconf2": {
+        "alias": ["reconf2", "重载配置2"],
+        "desc": "重载配置(不包含插件配置)",
+    },
     "resetall": {
         "alias": ["resetall", "重置所有会话"],
         "desc": "重置所有会话",
