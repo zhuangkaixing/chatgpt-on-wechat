@@ -7,6 +7,8 @@
     "@bot"
   ],
   "single_chat_reply_prefix": "[bot] ",
+  "single_ignore": false,
+  "single_special": [],
   "group_chat_prefix": [
     "@bot"
   ],

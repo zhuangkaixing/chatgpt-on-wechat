@@ -149,6 +149,8 @@ class WechatChannel(ChatChannel):
     @time_checker
     @_check
     def handle_single(self, cmsg: ChatMessage):
+        if conf().get("single_ignore") and cmsg.from_user_nickname not in conf().get("single_special"):
+            return
         if cmsg.ctype == ContextType.VOICE:
             if conf().get("speech_recognition") != True:
                 return
