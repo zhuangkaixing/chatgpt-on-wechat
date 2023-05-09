@@ -10,6 +10,11 @@ from common.log import logger
 # 将所有可用的配置项写在字典里, 请使用小写字母
 # 此处的配置值无实际意义，程序不会读取此处的配置，仅用于提示格式，请将配置加入到config.json中
 available_setting = {
+    # 数据库相关配置
+    "mysql_host": "",
+    "mysql_db": "",
+    "mysql_user": "",
+    "mysql_passwd": "",
     # openai api配置
     "open_ai_api_key": "",  # openai api key
     # openai apibase，当use_azure_chatgpt为true时，需要设置对应的api base
@@ -22,6 +27,8 @@ available_setting = {
     # Bot触发配置
     "single_chat_prefix": ["bot", "@bot"],  # 私聊时文本需要包含该前缀才能触发机器人回复
     "single_chat_reply_prefix": "[bot] ",  # 私聊时自动回复的前缀，用于区分真人
+    "single_ignore": False,  # 私聊时判断是否忽略
+    "single_special": [],  # 特殊的私聊，不忽略
     "group_chat_prefix": ["@bot"],  # 群聊时包含该前缀则会触发机器人回复
     "group_chat_reply_prefix": "",  # 群聊时自动回复的前缀
     "group_chat_keyword": [],  # 群聊时包含该关键词则会触发机器人回复
