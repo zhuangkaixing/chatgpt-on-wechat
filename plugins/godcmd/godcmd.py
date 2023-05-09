@@ -302,14 +302,14 @@ class Godcmd(Plugin):
                             # 使用 cursor() 方法创建一个游标对象 cursor
                             cursor = db.cursor()
                             # 配置表不存在则创建一条
-                            cursor.execute("CREATE TABLE IF NOT EXISTS `z_config`  (\
+                            cursor.execute("CREATE TABLE IF NOT EXISTS `zzz_config`  (\
                                                 `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '配置ID',\
                                                 `name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '变量名',\
                                                 `value` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '变量值',\
                                                 PRIMARY KEY (`id`) USING BTREE\
                                             ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '配置表' ROW_FORMAT = Dynamic;\
                             ")
-                            cursor.execute("select name,value from z_config")
+                            cursor.execute("select name,value from zzz_config")
                             # 使用 fetchall() 方法获取所有数据.
                             configList = cursor.fetchall()
                             if configList.__len__():
